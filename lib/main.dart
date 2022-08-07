@@ -38,6 +38,7 @@ class InstaApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
             appBarTheme: const AppBarTheme(
               color: Colors.white,
+              elevation: 1,
               systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
             iconTheme: const IconThemeData(color: Colors.black),

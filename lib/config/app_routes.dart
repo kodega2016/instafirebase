@@ -1,6 +1,7 @@
 import 'package:firebaseinsta/screens/login/login_screen.dart';
 import 'package:firebaseinsta/screens/nav/nav_screen.dart';
 import 'package:firebaseinsta/screens/screens.dart';
+import 'package:firebaseinsta/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -21,6 +22,9 @@ class AppRoutes {
 
       case LoginScreen.routeName:
         return LoginScreen.route();
+
+      case SignUpScreen.routeName:
+        return SignUpScreen.route();
 
       case NavScreen.routeName:
         return NavScreen.route();

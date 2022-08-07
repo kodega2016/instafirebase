@@ -46,22 +46,26 @@ class AuthRepository implements BaseAuthRepository {
     required String email,
     required String password,
   }) async {
-    final auth.UserCredential authCredential =
-        await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      final auth.UserCredential authCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    final user = authCredential.user!;
-    await user.updateDisplayName(name);
+      final user = authCredential.user!;
+      await user.updateDisplayName(name);
 
-    await _firebaseFirestore.collection('users').doc(user.uid).set({
-      'username': name,
-      'email': email,
-      'followers': 0,
-      'following': 0,
-    });
+      await _firebaseFirestore.collection('users').doc(user.uid).set({
+        'username': name,
+        'email': email,
+        'followers': 0,
+        'following': 0,
+      });
 
-    return user;
+      return user;
+    } on FirebaseException catch (e) {
+      throw Failure(code: e.code, message: e.message ?? '');
+    }
   }
 }

@@ -22,6 +22,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
+        listenWhen: (prev, current) => prev.authStatus != current.authStatus,
         listener: (context, state) {
           if (state.authStatus == AuthStatus.authenticated) {
             Navigator.pushReplacementNamed(context, NavScreen.routeName);

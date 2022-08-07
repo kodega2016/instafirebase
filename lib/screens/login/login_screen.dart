@@ -1,5 +1,7 @@
 import 'package:firebaseinsta/repositories/auth_repository.dart';
 import 'package:firebaseinsta/screens/login/login/login_cubit.dart';
+import 'package:firebaseinsta/screens/nav/nav_screen.dart';
+import 'package:firebaseinsta/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,6 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Colors.red,
                   ),
                 );
+              } else if (state.loginStatus == LoginStatus.success) {
+                Navigator.pushReplacementNamed(context, NavScreen.routeName);
               }
             },
             child: Form(
@@ -114,7 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           foregroundColor:
                               MaterialStateProperty.all(Colors.black),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, SignUpScreen.routeName);
+                        },
                         child: const Text('No account? Sign Up'),
                       ),
                     ],
