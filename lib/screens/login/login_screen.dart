@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 4),
                       ElevatedButton(
                         style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0.1),
                           backgroundColor: MaterialStateProperty.all(
                             Colors.grey[50],
                           ),
