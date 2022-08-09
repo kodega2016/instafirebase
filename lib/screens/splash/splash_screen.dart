@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/screens/login/login_screen.dart';
 import 'package:firebaseinsta/screens/nav/nav_screen.dart';
@@ -11,12 +13,10 @@ class SplashScreen extends StatelessWidget {
     return MaterialPageRoute(
       settings: const RouteSettings(name: SplashScreen.routeName),
       builder: (_) {
-        return const SplashScreen();
+        return SplashScreen();
       },
     );
   }
-
-  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class SplashScreen extends StatelessWidget {
         listenWhen: (prev, current) => prev.authStatus != current.authStatus,
         listener: (context, state) {
           if (state.authStatus == AuthStatus.authenticated) {
-            Navigator.pushReplacementNamed(context, NavScreen.routeName);
+            Navigator.pushNamed(context, NavScreen.routeName);
           } else if (state.authStatus == AuthStatus.unauthenticated) {
-            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+            Navigator.pushNamed(context, LoginScreen.routeName);
           }
         },
         child: WillPopScope(
