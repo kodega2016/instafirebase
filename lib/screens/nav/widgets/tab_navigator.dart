@@ -1,3 +1,4 @@
+import 'package:firebaseinsta/config/app_routes.dart';
 import 'package:firebaseinsta/enums/bottom_nav_item.dart';
 import 'package:firebaseinsta/screens/add/add_screen.dart';
 import 'package:firebaseinsta/screens/favourite/favourite_screen.dart';
@@ -31,6 +32,7 @@ class TabNavigator extends StatelessWidget {
     return Navigator(
       key: navigatorKey,
       initialRoute: tabNavigatorRoot,
+      onGenerateRoute: AppRoutes.onGenerateNestedRoute,
       onGenerateInitialRoutes: (_, initialRoute) {
         return [
           MaterialPageRoute(
@@ -58,6 +60,7 @@ class TabNavigator extends StatelessWidget {
         return const ProfileScreen();
 
       default:
+        return const Scaffold();
     }
   }
 }

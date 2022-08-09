@@ -41,4 +41,21 @@ class AppRoutes {
         );
     }
   }
+
+  static Route onGenerateNestedRoute(RouteSettings settings) {
+    debugPrint('nested route:${settings.name}');
+
+    switch (settings.name) {
+      default:
+        return MaterialPageRoute(
+          builder: (_) {
+            return const Scaffold(
+              body: Center(
+                child: Text('Page not found 🧐 '),
+              ),
+            );
+          },
+        );
+    }
+  }
 }

@@ -1,9 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/blocs/simple_bloc_observer.dart';
 import 'package:firebaseinsta/config/app_routes.dart';
 import 'package:firebaseinsta/repositories/auth_repository.dart';
 import 'package:firebaseinsta/screens/screens.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
+  EquatableConfig.stringify = kDebugMode;
   runApp(const InstaApp());
 }
 

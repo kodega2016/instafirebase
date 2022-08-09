@@ -5,8 +5,20 @@ class FavouriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const Scaffold(
+              body: Center(
+                child: Text('I am here:)'),
+              ),
+            ),
+          ),
+        );
+      }),
+      body: const Center(
         child: Text('Favourite'),
       ),
     );
