@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebaseinsta/models/failure.dart';
-import 'package:firebaseinsta/repositories/auth_repository.dart';
+import 'package:firebaseinsta/repositories/auth/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'login_state.dart';

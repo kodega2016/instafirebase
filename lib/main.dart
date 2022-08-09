@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/blocs/simple_bloc_observer.dart';
 import 'package:firebaseinsta/config/app_routes.dart';
-import 'package:firebaseinsta/repositories/auth_repository.dart';
+import 'package:firebaseinsta/repositories/auth/auth_repository.dart';
 import 'package:firebaseinsta/screens/screens.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

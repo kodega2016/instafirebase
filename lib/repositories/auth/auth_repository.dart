@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebaseinsta/models/failure.dart';
-import 'package:firebaseinsta/repositories/base_auth_repository.dart';
+import 'package:firebaseinsta/repositories/auth/base_auth_repository.dart';
 
 class AuthRepository implements BaseAuthRepository {
   final auth.FirebaseAuth _firebaseAuth;

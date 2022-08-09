@@ -1,4 +1,4 @@
-import 'package:firebaseinsta/repositories/auth_repository.dart';
+import 'package:firebaseinsta/repositories/auth/auth_repository.dart';
 import 'package:firebaseinsta/screens/login/login/login_cubit.dart';
 import 'package:firebaseinsta/screens/nav/nav_screen.dart';
 import 'package:firebaseinsta/screens/signup/signup_screen.dart';

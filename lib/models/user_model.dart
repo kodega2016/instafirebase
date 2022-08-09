@@ -58,9 +58,12 @@ class User extends Equatable {
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
+  factory User.fromMap(
+    Map<String, dynamic> map,
+    String id,
+  ) {
     return User(
-      id: map['id'] as String,
+      id: id,
       username: map['username'] as String,
       email: map['email'] as String,
       profileImageUrl: map['profileImageUrl'] != null
