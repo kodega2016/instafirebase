@@ -1,6 +1,4 @@
-import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/enums/enums.dart';
-import 'package:firebaseinsta/screens/login/login_screen.dart';
 import 'package:firebaseinsta/screens/nav/cubit/nav_bar_cubit.dart';
 import 'package:firebaseinsta/screens/nav/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -90,32 +88,6 @@ class NavScreen extends StatelessWidget {
               var item = BottomNavItem.values[val];
               _selectBottomNavItem(context, item, state.selectedItem == item);
             },
-          ),
-          appBar: AppBar(
-            actions: [
-              BlocConsumer<AuthBloc, AuthState>(
-                listener: (context, state) {
-                  if (state.authStatus == AuthStatus.unauthenticated) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      LoginScreen.routeName,
-                      (route) => true,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return IconButton(
-                    onPressed: () {
-                      context.read<AuthBloc>().add(AuthLogoutRequest());
-                    },
-                    icon: const Icon(
-                      Icons.exit_to_app,
-                      color: Colors.black,
-                    ),
-                  );
-                },
-              )
-            ],
           ),
         );
       },

@@ -1,11 +1,15 @@
+import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/config/app_routes.dart';
 import 'package:firebaseinsta/enums/bottom_nav_item.dart';
+import 'package:firebaseinsta/repositories/repositories.dart';
 import 'package:firebaseinsta/screens/add/add_screen.dart';
 import 'package:firebaseinsta/screens/favourite/favourite_screen.dart';
 import 'package:firebaseinsta/screens/feed/feed_screen.dart';
-import 'package:firebaseinsta/screens/profile/profile_scrren.dart';
+import 'package:firebaseinsta/screens/profile/bloc/profile_bloc.dart';
+import 'package:firebaseinsta/screens/profile/profile_screen.dart';
 import 'package:firebaseinsta/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TabNavigator extends StatelessWidget {
   static const String tabNavigatorRoot = '/';
@@ -57,7 +61,14 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.favorite:
         return const FavouriteScreen();
       case BottomNavItem.profile:
-        return const ProfileScreen();
+        return BlocProvider<ProfileBloc>(
+          create: (context) => ProfileBloc(
+            authBloc: context.read<AuthBloc>(),
+            userRepository: context.read<UserRepository>(),
+          )..add(ProfileLoadUser(
+              userID: context.read<AuthBloc>().state.user?.uid ?? '')),
+          child: const ProfileScreen(),
+        );
 
       default:
         return const Scaffold();
