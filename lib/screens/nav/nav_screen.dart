@@ -2,7 +2,7 @@ import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/enums/enums.dart';
 import 'package:firebaseinsta/screens/login/login_screen.dart';
 import 'package:firebaseinsta/screens/nav/cubit/nav_bar_cubit.dart';
-import 'package:firebaseinsta/screens/nav/widgets/bottom_nav_bar.dart';
+import 'package:firebaseinsta/screens/nav/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,7 +57,10 @@ class NavScreen extends StatelessWidget {
   ) {
     return Offstage(
       offstage: !isSelected,
-      child: Container(),
+      child: TabNavigator(
+        item: currentItem,
+        navigatorKey: navigatorKeys[currentItem]!,
+      ),
     );
   }
 
@@ -72,9 +75,9 @@ class NavScreen extends StatelessWidget {
               ...items
                   .map((key, value) {
                     return MapEntry(
-                        key,
-                        _buildOffStageNavigator(
-                            key, key == state.selectedItem));
+                      key,
+                      _buildOffStageNavigator(key, key == state.selectedItem),
+                    );
                   })
                   .values
                   .toList(),
