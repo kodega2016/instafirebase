@@ -41,6 +41,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   google_fonts: ^3.0.1
   cached_network_image: ^3.2.1
+  firebase_storage: ^10.3.4
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:
