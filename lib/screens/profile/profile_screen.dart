@@ -3,6 +3,8 @@ import 'package:firebaseinsta/screens/profile/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'widgets/widgets.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -41,9 +43,40 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: Column(
-              children: [
-                Text(state.user.username),
+            body: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 16,
+                        ),
+                        child: Row(
+                          children: [
+                            UserProfileImage(
+                              profileImageUrl: state.user.profileImageUrl,
+                              radius: 50,
+                            ),
+                            ProfileStats(
+                              followers: state.user.followers,
+                              followings: state.user.following,
+                              isCurrentUser: state.isCurrentUser,
+                              isFollowing: state.isFollowing,
+                              posts: 0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      ProfileInfo(
+                        username: state.user.username,
+                        bio: state.user.bio,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );

@@ -11,6 +11,7 @@ class UserRepository implements BaseUserRepository {
   @override
   Future<User> getUserWithId(String id) async {
     final doc = await _firebaseFirestore.collection(Paths.users).doc(id).get();
+
     if (doc.exists) {
       return User.fromMap(doc.data()!, doc.id);
     } else {
