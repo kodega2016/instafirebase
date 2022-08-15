@@ -1,3 +1,4 @@
+import 'package:firebaseinsta/screens/edit_profile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileButton extends StatelessWidget {
@@ -18,7 +19,15 @@ class ProfileButton extends StatelessWidget {
             MaterialStateProperty.all(Theme.of(context).primaryColor),
         foregroundColor: MaterialStateProperty.all(Colors.white),
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (isCurrentUser) {
+          Navigator.pushNamed(
+            context,
+            EditProfileScreen.routeName,
+            arguments: EditProfileScreenArgs(context: context),
+          );
+        }
+      },
       child: Text(
         isCurrentUser ? 'Edit Profile' : (isFollowing ? 'Unflow' : 'Follow'),
       ),

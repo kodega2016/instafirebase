@@ -22,7 +22,7 @@ class User extends Equatable {
   });
 
   @override
-  List<Object> get props => [id, username, email];
+  List<Object> get props => [id, username, email, profileImageUrl ?? ''];
 
   static const empty = User(id: '', username: '', email: '');
 

@@ -1,6 +1,7 @@
 import 'package:firebaseinsta/repositories/auth/auth_repository.dart';
 import 'package:firebaseinsta/screens/login/login/login_cubit.dart';
 import 'package:firebaseinsta/screens/signup/signup_screen.dart';
+import 'package:firebaseinsta/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,20 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 10),
                       Text(
                         'Instagram',
-                        textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
                             .headline5
                             ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      BlocBuilder<LoginCubit, LoginState>(
-                        builder: (context, state) {
-                          if (state.loginStatus == LoginStatus.submitting) {
-                            return const LinearProgressIndicator();
-                          }
-                          return Container();
-                        },
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
@@ -97,14 +88,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             : null,
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            _formKey.currentState?.save();
-                            context.read<LoginCubit>().loginWithCredentials();
-                          }
+                      BlocBuilder<LoginCubit, LoginState>(
+                        builder: (context, state) {
+                          return PElevatedButton(
+                            isBusy: state.loginStatus == LoginStatus.submitting,
+                            onPressed: () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                _formKey.currentState?.save();
+                                context
+                                    .read<LoginCubit>()
+                                    .loginWithCredentials();
+                              }
+                            },
+                            label: 'Log In',
+                          );
                         },
-                        child: const Text('Log In'),
                       ),
                       const SizedBox(height: 4),
                       ElevatedButton(

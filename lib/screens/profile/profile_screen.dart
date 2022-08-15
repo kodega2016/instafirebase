@@ -26,6 +26,12 @@ class ProfileScreen extends StatelessWidget {
           );
         } else if (state.status == ProfileStatus.loaded) {
           return Scaffold(
+            // floatingActionButton: FloatingActionButton(
+            //   onPressed: () async {
+            //     Navigator.pushNamed(context, EditProfileScreen.routeName);
+            //   },
+            //   child: const Icon(Icons.add_a_photo),
+            // ),
             appBar: AppBar(
               title: Text(
                 state.user.username,

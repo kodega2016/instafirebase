@@ -23,7 +23,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(state.copyWith(status: ProfileStatus.loading));
         try {
           final user = await _userRepository.getUserWithId(event.userID);
-          final isCurrentUser = _authBloc.state.user?.uid == event.userID;
+          final isCurrentUser = _authBloc.state.user?.uid == user.id;
+
           emit(state.copyWith(
             user: user,
             isCurrentUser: isCurrentUser,

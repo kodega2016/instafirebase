@@ -43,10 +43,10 @@ class ProfileStats extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ProfileButton(
-              isCurrentUser: false,
+              isCurrentUser: isCurrentUser,
               isFollowing: false,
             ),
           ),

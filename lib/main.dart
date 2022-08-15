@@ -32,6 +32,9 @@ class InstaApp extends StatelessWidget {
         RepositoryProvider<UserRepository>(
           create: (context) => UserRepository(),
         ),
+        RepositoryProvider<StorageRepository>(
+          create: (context) => StorageRepository(),
+        ),
       ],
       child: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(

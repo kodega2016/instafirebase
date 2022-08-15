@@ -1,3 +1,4 @@
+import 'package:firebaseinsta/screens/edit_profile/edit_profile_screen.dart';
 import 'package:firebaseinsta/screens/login/login_screen.dart';
 import 'package:firebaseinsta/screens/nav/nav_screen.dart';
 import 'package:firebaseinsta/screens/screens.dart';
@@ -46,6 +47,10 @@ class AppRoutes {
     debugPrint('nested route:${settings.name}');
 
     switch (settings.name) {
+      case EditProfileScreen.routeName:
+        return EditProfileScreen.route(
+          settings.arguments as EditProfileScreenArgs,
+        );
       default:
         return MaterialPageRoute(
           builder: (_) {
