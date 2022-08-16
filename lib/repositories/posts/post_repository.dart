@@ -23,7 +23,9 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Stream<List<CommentModel>> getPostComments({required String postID}) {
+  Stream<List<Future<CommentModel?>>> getPostComments({
+    required String postID,
+  }) {
     final snapshots = _firestore
         .collection(Paths.comments)
         .doc(postID)
@@ -32,19 +34,21 @@ class PostRepository extends BasePostRepository {
         .orderBy('date', descending: true)
         .snapshots();
     return snapshots.map((event) => event.docs
-        .map<CommentModel>((doc) => CommentModel.fromJson(doc.data(), doc.id))
+        .map<Future<CommentModel?>>((doc) => CommentModel.fromDocument(doc))
         .toList());
   }
 
   @override
-  Stream<List<PostModel>> getUserPosts({required String userID}) {
+  Stream<List<Future<PostModel?>>> getUserPosts({
+    required String userID,
+  }) {
     final snapshots = _firestore
         .collection(Paths.posts)
         .where('author', isEqualTo: userID)
         .orderBy('date', descending: true)
         .snapshots();
     return snapshots.map((event) => event.docs
-        .map<PostModel>((doc) => PostModel.fromJson(doc.data(), doc.id))
+        .map<Future<PostModel?>>((doc) => PostModel.fromDocument(doc))
         .toList());
   }
 }

@@ -23,6 +23,26 @@ class PostModel extends Equatable {
   @override
   List<Object?> get props => [id, caption, user, date, likes];
 
+  static Future<PostModel?> fromDocument(DocumentSnapshot doc) async {
+    final data = doc.data() as Map;
+    if (data.isEmpty) return null;
+
+    final authorRef = data['author'] as DocumentReference;
+    final authorDoc = await authorRef.get();
+    if (authorDoc.exists) {
+      return PostModel(
+        id: doc.id,
+        caption: doc['caption'],
+        user: User.fromMap(
+            authorDoc.data() as Map<String, dynamic>, authorDoc.id),
+        date: doc['date'].toDate(),
+        imageUrl: doc['imageUrl'],
+        likes: doc['likes'],
+      );
+    }
+    return null;
+  }
+
   factory PostModel.fromJson(Map<String, dynamic> json, String id) {
     return PostModel(
       id: id,
