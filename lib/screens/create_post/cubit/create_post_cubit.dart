@@ -32,7 +32,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     emit(state.copyWith(postImage: file, status: CreatePostStatus.initial));
   }
 
-  Future<void> suvmit() async {
+  Future<void> submit() async {
     try {
       emit(state.copyWith(status: CreatePostStatus.submitting));
       final author = User.empty.copyWith(id: _authBloc.state.user!.uid);
@@ -52,6 +52,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     } catch (e) {
       emit(
         state.copyWith(
+          status: CreatePostStatus.error,
           failure: const Failure(
             code: '',
             message: 'We were unable to create your post.',

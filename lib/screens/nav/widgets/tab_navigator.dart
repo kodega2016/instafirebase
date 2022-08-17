@@ -2,7 +2,8 @@ import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
 import 'package:firebaseinsta/config/app_routes.dart';
 import 'package:firebaseinsta/enums/bottom_nav_item.dart';
 import 'package:firebaseinsta/repositories/repositories.dart';
-import 'package:firebaseinsta/screens/add/add_screen.dart';
+import 'package:firebaseinsta/screens/create_post/create_post_screen.dart';
+import 'package:firebaseinsta/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:firebaseinsta/screens/favourite/favourite_screen.dart';
 import 'package:firebaseinsta/screens/feed/feed_screen.dart';
 import 'package:firebaseinsta/screens/profile/bloc/profile_bloc.dart';
@@ -57,7 +58,14 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.search:
         return const SearchScreen();
       case BottomNavItem.add:
-        return const AddScreen();
+        return BlocProvider(
+          create: (_) => CreatePostCubit(
+            postRepository: context.read<PostRepository>(),
+            authBloc: context.read<AuthBloc>(),
+            storageRepository: context.read<StorageRepository>(),
+          ),
+          child: CreatePostScreen(),
+        );
       case BottomNavItem.favorite:
         return const FavouriteScreen();
       case BottomNavItem.profile:
