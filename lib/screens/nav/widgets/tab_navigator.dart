@@ -8,6 +8,7 @@ import 'package:firebaseinsta/screens/favourite/favourite_screen.dart';
 import 'package:firebaseinsta/screens/feed/feed_screen.dart';
 import 'package:firebaseinsta/screens/profile/bloc/profile_bloc.dart';
 import 'package:firebaseinsta/screens/profile/profile_screen.dart';
+import 'package:firebaseinsta/screens/search/cubit/search_cubit.dart';
 import 'package:firebaseinsta/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +57,12 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.feed:
         return const FeedScreen();
       case BottomNavItem.search:
-        return const SearchScreen();
+        return BlocProvider<SearchCubit>(
+          create: (context) => SearchCubit(
+            userRepository: context.read<UserRepository>(),
+          ),
+          child: SearchScreen(),
+        );
       case BottomNavItem.add:
         return BlocProvider(
           create: (_) => CreatePostCubit(

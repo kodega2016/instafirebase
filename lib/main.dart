@@ -56,6 +56,8 @@ class InstaApp extends StatelessWidget {
               color: Colors.white,
               elevation: 1,
               systemOverlayStyle: SystemUiOverlayStyle.dark,
+              actionsIconTheme: IconThemeData(color: Colors.black),
+              iconTheme: IconThemeData(color: Colors.black),
             ),
             iconTheme: const IconThemeData(color: Colors.black),
             tabBarTheme: const TabBarTheme(labelColor: Colors.black),

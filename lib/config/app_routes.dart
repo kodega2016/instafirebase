@@ -1,6 +1,7 @@
 import 'package:firebaseinsta/screens/edit_profile/edit_profile_screen.dart';
 import 'package:firebaseinsta/screens/login/login_screen.dart';
 import 'package:firebaseinsta/screens/nav/nav_screen.dart';
+import 'package:firebaseinsta/screens/profile/profile_screen.dart';
 import 'package:firebaseinsta/screens/screens.dart';
 import 'package:firebaseinsta/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,11 @@ class AppRoutes {
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(
           settings.arguments as EditProfileScreenArgs,
+        );
+
+      case ProfileScreen.routeName:
+        return ProfileScreen.route(
+          args: settings.arguments as ProfileScreenArgs,
         );
       default:
         return MaterialPageRoute(

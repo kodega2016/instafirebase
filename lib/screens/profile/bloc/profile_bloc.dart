@@ -36,9 +36,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           final user = await _userRepository.getUserWithId(event.userID);
           final isCurrentUser = _authBloc.state.user?.uid == user.id;
 
+          final userID = user.id;
           _postsSubscription?.cancel();
           _postsSubscription = _postRepository
-              .getUserPosts(userID: user.id)
+              .getUserPosts(userID: userID)
               .listen((posts) async {
             final allPosts = await Future.wait(posts);
 

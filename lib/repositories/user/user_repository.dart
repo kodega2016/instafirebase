@@ -26,4 +26,13 @@ class UserRepository implements BaseUserRepository {
         .doc(user.id)
         .update(user.toMap());
   }
+
+  @override
+  Future<List<User>> searchUser({required String query}) async {
+    final docs = await _firebaseFirestore
+        .collection(Paths.users)
+        .where('username', isGreaterThanOrEqualTo: query)
+        .get();
+    return docs.docs.map<User>((e) => User.fromMap(e.data(), e.id)).toList();
+  }
 }

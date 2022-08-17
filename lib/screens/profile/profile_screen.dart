@@ -1,13 +1,37 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebaseinsta/blocs/auth/auth_bloc.dart';
+import 'package:firebaseinsta/extensions/datetime_extension.dart';
 import 'package:firebaseinsta/models/post_model.dart';
+import 'package:firebaseinsta/repositories/repositories.dart';
 import 'package:firebaseinsta/screens/profile/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/widgets.dart';
 
+class ProfileScreenArgs {
+  final String userID;
+  ProfileScreenArgs({required this.userID});
+}
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  static const String routeName = '/profile';
+
+  static Route route({required ProfileScreenArgs args}) {
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routeName),
+      builder: (context) => BlocProvider<ProfileBloc>(
+        create: (_) => ProfileBloc(
+          userRepository: context.read<UserRepository>(),
+          postRepository: context.read<PostRepository>(),
+          authBloc: context.read<AuthBloc>(),
+        )..add(ProfileLoadUser(userID: args.userID)),
+        child: const ProfileScreen(),
+      ),
+    );
+  }
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -96,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               followings: state.user.following,
                               isCurrentUser: state.isCurrentUser,
                               isFollowing: state.isFollowing,
-                              posts: 0,
+                              posts: state.posts.length,
                             ),
                           ],
                         ),
@@ -130,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : state.isGridView
+                    : (state.isGridView
                         ? SliverGrid(
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
@@ -158,19 +182,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
                                 final PostModel post = state.posts[index];
-                                return SizedBox(
-                                  // height: 120,
-                                  child: Card(
-                                    child: Image.network(
-                                      post.imageUrl!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
+                                return PostView(post: post);
                               },
                               childCount: state.posts.length,
                             ),
-                          )
+                          ))
               ],
             ),
           );
@@ -178,6 +194,94 @@ class _ProfileScreenState extends State<ProfileScreen>
           return const Scaffold();
         }
       },
+    );
+  }
+}
+
+class PostView extends StatelessWidget {
+  const PostView({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
+
+  final PostModel post;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 16,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey[200],
+                backgroundImage: post.user.profileImageUrl == null
+                    ? null
+                    : CachedNetworkImageProvider(post.user.profileImageUrl!),
+                child: post.user.profileImageUrl == null
+                    ? const Icon(Icons.person_outline)
+                    : null,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                post.user.username,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 2.2,
+            child: CachedNetworkImage(
+              imageUrl: post.imageUrl!,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: const [
+              Icon(Icons.favorite_outline),
+              SizedBox(width: 10),
+              Icon(Icons.message_outlined),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text('${post.likes} likes'),
+          const SizedBox(height: 16),
+          RichText(
+            text: TextSpan(
+              text: post.user.username,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle2!
+                  .copyWith(color: Colors.black),
+              children: [
+                TextSpan(
+                  text: ' ${post.caption}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption!
+                      .copyWith(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(post.date.timeAgo(),
+              style: Theme.of(context)
+                  .textTheme
+                  .caption!
+                  .copyWith(color: Colors.grey)),
+        ],
+      ),
     );
   }
 }
