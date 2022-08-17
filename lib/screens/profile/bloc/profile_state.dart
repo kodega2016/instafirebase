@@ -11,10 +11,11 @@ class ProfileState extends Equatable {
     this.isFollowing = false,
     required this.user,
     this.failure,
+    this.posts = const <PostModel>[],
   });
 
   final User user;
-  // final List<Post> posts;
+  final List<PostModel> posts;
   final bool isCurrentUser;
   final bool isGridView;
   final ProfileStatus status;
@@ -22,10 +23,10 @@ class ProfileState extends Equatable {
   final bool isFollowing;
 
   @override
-  List<Object> get props => [user, isCurrentUser, isGridView];
+  List<Object> get props => [user, isCurrentUser, isGridView, posts];
 
   factory ProfileState.initial() {
-    return const ProfileState(user: User.empty);
+    return const ProfileState(user: User.empty, isGridView: true);
   }
 
   ProfileState copyWith({
@@ -35,6 +36,7 @@ class ProfileState extends Equatable {
     ProfileStatus? status,
     Failure? failure,
     bool? isFollowing,
+    List<PostModel>? posts,
   }) {
     return ProfileState(
       user: user ?? this.user,
@@ -43,6 +45,7 @@ class ProfileState extends Equatable {
       status: status ?? this.status,
       failure: failure ?? this.failure,
       isFollowing: isFollowing ?? this.isFollowing,
+      posts: posts ?? this.posts,
     );
   }
 }

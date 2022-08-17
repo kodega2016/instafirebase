@@ -35,8 +35,8 @@ class CreatePostScreen extends StatelessWidget {
               ),
             );
           } else if (state.status == CreatePostStatus.success) {
-            context.read<CreatePostCubit>().reset();
             _key.currentState?.reset();
+            context.read<CreatePostCubit>().reset();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Post created successfully.'),

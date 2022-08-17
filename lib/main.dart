@@ -49,7 +49,7 @@ class InstaApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Colors.blue,
             brightness: Brightness.light,
-            fontFamily: GoogleFonts.workSans().fontFamily,
+            fontFamily: GoogleFonts.robotoMono().fontFamily,
             scaffoldBackgroundColor: Colors.grey[50],
             visualDensity: VisualDensity.adaptivePlatformDensity,
             appBarTheme: const AppBarTheme(
@@ -58,6 +58,7 @@ class InstaApp extends StatelessWidget {
               systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
             iconTheme: const IconThemeData(color: Colors.black),
+            tabBarTheme: const TabBarTheme(labelColor: Colors.black),
             textTheme: const TextTheme(
               headline6: TextStyle(
                 color: Colors.black,

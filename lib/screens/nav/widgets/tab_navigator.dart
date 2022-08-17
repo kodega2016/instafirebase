@@ -73,8 +73,12 @@ class TabNavigator extends StatelessWidget {
           create: (context) => ProfileBloc(
             authBloc: context.read<AuthBloc>(),
             userRepository: context.read<UserRepository>(),
-          )..add(ProfileLoadUser(
-              userID: context.read<AuthBloc>().state.user?.uid ?? '')),
+            postRepository: context.read<PostRepository>(),
+          )..add(
+              ProfileLoadUser(
+                userID: context.read<AuthBloc>().state.user?.uid ?? '',
+              ),
+            ),
           child: const ProfileScreen(),
         );
 

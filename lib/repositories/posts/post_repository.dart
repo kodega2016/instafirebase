@@ -42,11 +42,14 @@ class PostRepository extends BasePostRepository {
   Stream<List<Future<PostModel?>>> getUserPosts({
     required String userID,
   }) {
+    final authorRef =
+        FirebaseFirestore.instance.collection(Paths.users).doc(userID);
     final snapshots = _firestore
         .collection(Paths.posts)
-        .where('author', isEqualTo: userID)
+        .where('author', isEqualTo: authorRef)
         .orderBy('date', descending: true)
         .snapshots();
+
     return snapshots.map((event) => event.docs
         .map<Future<PostModel?>>((doc) => PostModel.fromDocument(doc))
         .toList());

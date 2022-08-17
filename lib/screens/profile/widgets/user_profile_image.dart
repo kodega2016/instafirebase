@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileImage extends StatelessWidget {
@@ -24,13 +23,16 @@ class UserProfileImage extends StatelessWidget {
       child: CircleAvatar(
         radius: radius,
         backgroundColor: Colors.grey[200],
-        backgroundImage: profileImageUrl != null
-            ? CachedNetworkImageProvider(profileImageUrl!)
-            : null,
+        // backgroundImage: profileImageUrl != null
+        //     ? CachedNetworkImageProvider(profileImageUrl!)
+        //     : null,
         child: image != null
             ? Image.file(image!)
             : (profileImageUrl != null
-                ? Image.network(profileImageUrl!)
+                ? Image.network(
+                    profileImageUrl!,
+                    fit: BoxFit.cover,
+                  )
                 : const Icon(Icons.camera_alt)),
       ),
     );

@@ -56,8 +56,7 @@ class PostModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'author':
-          FirebaseFirestore.instance.collection(Paths.users).doc(user.id).path,
+      'author': FirebaseFirestore.instance.collection(Paths.users).doc(user.id),
       'imageUrl': imageUrl,
       'caption': caption,
       'date': Timestamp.fromDate(date),
